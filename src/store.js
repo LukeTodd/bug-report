@@ -43,8 +43,14 @@ export default new Vuex.Store({
     getActiveBug({ commit, dispatch }, payload) {
       _bugApi.get('' + payload)
         .then(res => {
-          console.log(res.data)
           commit('setActiveBug', res.data.results)
+        })
+    },
+    deleteBug({ commit, dispatch }, payload) {
+      debugger
+      _bugApi.delete('' + payload)
+        .then(res => {
+          commit('setBugs', res.data.results)
         })
     }
 

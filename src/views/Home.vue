@@ -74,8 +74,4 @@
     color: white;
     text-shadow: 1px 1px black;
   }
-
-  .click {
-    cursor: none;
-  }
 </style>

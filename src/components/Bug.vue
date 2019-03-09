@@ -1,11 +1,11 @@
 <template>
   <tbody>
-    <tr @click="$router.push({name: 'bugDetails', params: {id:bugData._id}})">
-      <td>{{bugData.title}}</td>
+    <tr class="click">
+      <td @click="$router.push({name: 'bugDetails', params: {id:bugData._id}})">{{bugData.title}}</td>
       <td>{{bugData.creator}}</td>
       <td>{{bugData.createdAt}}</td>
-      <td v-if="bugData.closed = false">Closed</td>
-      <td v-else="bugData.closed = true">Open</td>
+      <td v-if="bugData.closed = false" @click="deleteBug"><input type="checkbox">Closed</td>
+      <td v-else="bugData.closed = true" @click="deleteBug"><input type="checkbox">Open</td>
     </tr>
   </tbody>
 
@@ -16,18 +16,20 @@
     name: 'bug',
     props: ['bugData'],
     methods: {
-
+      deleteBug(id) {
+        this.$store.dispatch('deleteBug', id)
+      }
     }
   }
 
-  }
+
 </script>
 
 
 
 
 <style>
-  tr {
+  .click {
     cursor: pointer;
   }
 </style>
