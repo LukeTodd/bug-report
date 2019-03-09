@@ -47,5 +47,6 @@ export default new Vuex.Store({
           commit('setActiveBug', res.data.results)
         })
     }
+
   }
 })

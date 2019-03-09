@@ -1,5 +1,5 @@
 <template>
-  <div class='col-6'>
+  <div class='col-12'>
     <form @submit.prevent='createBug'>
       <input v-model='bugForm.title' type='string' name='title' placeholder='Title' required>
       <input v-model='bugForm.creator' type='string' name='creator' placeholder='User' required>
