@@ -13,7 +13,8 @@ let _bugApi = Axios.create({
 export default new Vuex.Store({
   state: {
     bugs: [],
-    activeBug: {}
+    activeBug: {},
+    notes: []
   },
   mutations: {
     addBug(state, data) {
@@ -24,6 +25,12 @@ export default new Vuex.Store({
     },
     setActiveBug(state, data) {
       state.activeBug = data
+    },
+    addNote(state, data) {
+      state.notes.push(data)
+    },
+    setNotes(state, data) {
+      state.notes = data
     }
   },
   actions: {
@@ -47,12 +54,39 @@ export default new Vuex.Store({
         })
     },
     deleteBug({ commit, dispatch }, payload) {
-      debugger
       _bugApi.delete('' + payload)
         .then(res => {
           commit('setBugs', res.data.results)
         })
+    },
+    editBug({ state, dispatch }, payload) {
+      let id = state.activeBug._id
+      _bugApi.put('' + id, payload)
+        .then(res => {
+          dispatch('getActiveBug', id)
+        })
+    },
+    createNote({ commit, state }, payload) {
+      let id = state.activeBug._id
+      _bugApi.post(id + '/notes', payload)
+        .then(res => {
+          commit('addNote', res.data.results)
+        })
+    },
+    //Don't know why this works but I hope it doesn't break
+    getNotes({ commit, state }, payload) {
+      let id = payload
+      _bugApi.get(id + '/notes')
+        .then(res => {
+          commit('setNotes', res.data.results)
+        })
+    },
+    deleteNote({ dispatch, state }, payload) {
+      let id = state.activeBug._id
+      _bugApi.delete(id + '/notes/' + payload)
+        .then(res => {
+          dispatch('getNotes', id)
+        })
     }
-
   }
 })
