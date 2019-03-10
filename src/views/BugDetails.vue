@@ -1,31 +1,32 @@
 <template>
   <div class="container-fluid bg-img">
     <div class="row">
-
-      <div class="card card-display">
-        <h5 class="card-header text-center b-white">{{bug.title}}</h5>
-        <div class="card-body">
-          <p class="card-text">{{bug.description}}</p>
-          <button v-on:click="bug.createdAt = !bug.createdAt">Edit Bug</button>
-
-          <form v-if="!bug.createdAt" @submit.prevent='editBug'>
-            <textarea rows=1 class="f-display" v-model='bugEdit.title' type='string' name='title'
-              placeholder="Title..."></textarea>
-            <textarea class="f-display" rows=5 wrap=hard v-model='bugEdit.description' type='string' name='description'
-              placeholder="Description..."></textarea>
-            <button type='submit'>Submit Edit</button>
-          </form>
-          <button class="note-btn text-right" v-on:click="showForm = !showForm">Add Note</button>
-          <form v-if="showForm" @submit.prevent='addNote'>
-            <textarea rows=1 class="f-display" v-model='bugNote.creator' type='string' placeholder="Created By..."
-              required></textarea>
-            <textarea rows=5 class="f-display" v-model='bugNote.content' type='string' name='comment'
-              placeholder='Add Note...' required></textarea>
-            <button type='submit'>Submit Note</button>
-          </form>
+      <div class="col-12">
+        <div class="card card-display">
+          <h5 class="card-header text-center b-white">{{bug.title}}<button class='close-btn text-right'
+              @click='deleteBug'>Close
+              Ticket</button></h5>
+          <div class="card-body">
+            <p class="card-text">{{bug.description}}</p>
+            <button v-on:click="bug.createdAt = !bug.createdAt">Edit Bug</button>
+            <form v-if="!bug.createdAt" @submit.prevent='editBug'>
+              <textarea rows=1 class="f-display" v-model='bugEdit.title' type='string' name='title'
+                placeholder="Title..."></textarea>
+              <textarea class="f-display" rows=5 wrap=hard v-model='bugEdit.description' type='string'
+                name='description' placeholder="Description..."></textarea>
+              <button type='submit'>Submit Edit</button>
+            </form>
+            <button class="note-btn text-right" v-on:click="showForm = !showForm">Add Note</button>
+            <form v-if="showForm" @submit.prevent='addNote'>
+              <textarea rows=1 class="f-display" v-model='bugNote.creator' type='string' placeholder="Created By..."
+                required></textarea>
+              <textarea rows=5 class="f-display" v-model='bugNote.content' type='string' name='comment'
+                placeholder='Add Note...' required></textarea>
+              <button type='submit'>Submit Note</button>
+            </form>
+          </div>
         </div>
       </div>
-
     </div>
     <div class="row">
       <div class="col">
@@ -79,6 +80,9 @@
       },
       addNote() {
         return this.$store.dispatch('createNote', this.bugNote)
+      },
+      deleteBug() {
+        return this.$store.dispatch('deleteBug')
       }
     },
     components: {
@@ -92,7 +96,7 @@
 <style>
   .card-display {
     margin: 20px;
-    width: 100%;
+    /* width: 100%; */
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
     text-shadow: 1px 1px black;
@@ -121,4 +125,6 @@
     border-width: 1px;
     margin-top: 100px;
   }
+
+  .close-btn {}
 </style>

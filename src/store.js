@@ -53,8 +53,9 @@ export default new Vuex.Store({
           commit('setActiveBug', res.data.results)
         })
     },
-    deleteBug({ commit, dispatch }, payload) {
-      _bugApi.delete('' + payload)
+    deleteBug({ commit, state }, payload) {
+      let id = state.activeBug._id
+      _bugApi.delete(id)
         .then(res => {
           commit('setBugs', res.data.results)
         })
