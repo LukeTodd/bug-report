@@ -100,7 +100,7 @@
   .bg-img {
     background-image: url('http://1.bp.blogspot.com/-A4qPdHh4qa0/UF_82fNqXeI/AAAAAAAACzU/9xvDjlhruqs/s1600/bugs_life_poster-1024x768.jpg');
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
     background-attachment: fixed;
     background-repeat: no-repeat;
   }
