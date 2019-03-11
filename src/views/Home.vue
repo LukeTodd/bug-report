@@ -10,12 +10,19 @@
       <bug-form></bug-form>
       <div class='col-3 ml-auto sort text-right'>
         <h4 class="text-right">Sort By</h4>
-        <select class="d-down">
-          <option v-model="sortByOpen">Open</option>
-          <option value="sortByClosed()">Closed</option>
-          <option value="mercedes">Most Recent</option>
-          <option value="audi">Oldest</option>
-        </select>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Dropdown button
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a @click='sortByOpen' class="dropdown-item" href="#">Open</a>
+            <a @click='sortByClosed' class="dropdown-item" href="#">Closed</a>
+            <a class="dropdown-item" href="#">Most Recent</a>
+            <a class="dropdown-item" href="#">Oldest</a>
+
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -58,6 +65,7 @@
       }
     },
     methods: {
+
       sortByOpen() {
         let bugs = this.$store.state.bugs
         bugs.sort(function (a, b) {
@@ -128,6 +136,13 @@
     margin-top: 190px;
     color: white;
     text-shadow: 1px 1px black;
+  }
+
+  #dropdownMenuButton {
+    background-color: white;
+    color: black;
+    margin-bottom: 10px;
+    border-radius: 25px;
   }
 </style>
 
