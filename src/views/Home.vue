@@ -9,11 +9,11 @@
     <div class="row bg-black">
       <bug-form></bug-form>
       <div class='col-3 ml-auto sort text-right'>
-        <h4 class="text-right">Sort By</h4>
+
         <div class="dropdown">
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            Dropdown button
+            Sort By
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a @click='sortByOpen' class="dropdown-item" href="#">Open</a>
@@ -141,7 +141,7 @@
   #dropdownMenuButton {
     background-color: white;
     color: black;
-    margin-bottom: 10px;
+    padding-top: 5px;
     border-radius: 25px;
   }
 </style>
