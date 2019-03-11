@@ -6,20 +6,16 @@
         </h1>
       </div>
     </div>
-    <div class="row">
+    <div class="row bg-black">
       <bug-form></bug-form>
-    </div>
-    <div class='col-3'>
-      <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-          <button class="dropdown-item" type="button">Action</button>
-          <button class="dropdown-item" type="button">Another action</button>
-          <button class="dropdown-item" type="button">Something else here</button>
-        </div>
+      <div class='col-3 ml-auto sort text-right'>
+        <h4 class="text-right">Sort By</h4>
+        <select class="d-down">
+          <option v-model="sortByOpen">Open</option>
+          <option value="sortByClosed()">Closed</option>
+          <option value="mercedes">Most Recent</option>
+          <option value="audi">Oldest</option>
+        </select>
       </div>
     </div>
     <div class="row">
@@ -44,6 +40,11 @@
   import BugForm from '@/components/BugForm.vue'
   export default {
     name: 'home',
+    data() {
+      return {
+
+      }
+    },
     mounted() {
       this.$store.dispatch('getBugs')
     },
@@ -54,6 +55,33 @@
     computed: {
       bugs() {
         return this.$store.state.bugs
+      }
+    },
+    methods: {
+      sortByOpen() {
+        let bugs = this.$store.state.bugs
+        bugs.sort(function (a, b) {
+          return a.closed - b.closed
+          // return this.$store.dispatch('getBugs')
+        })
+      },
+      sortByClosed() {
+        let bugs = this.$store.state.bugs
+        bugs.sort(function (a, b) {
+          return b.closed - a.closed
+        })
+      },
+      sortByRecent() {
+        let bugs = this.$store.state.bugs
+        bugs.sort(function (a, b) {
+          return b.createdAt - a.createdAt
+        })
+      },
+      sortByOldest() {
+        let bugs = this.$store.state.bugs
+        bugs.sort(function (a, b) {
+          return a.createdAt - b.createdAt
+        })
       }
     }
   }
@@ -77,6 +105,8 @@
     background-color: rgba(0, 0, 0, 0.8);
     padding-bottom: 20px;
     padding-top: 20px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid white;
   }
 
   .no-pd {
@@ -89,4 +119,26 @@
     text-shadow: 1px 1px black;
     margin-bottom: 200px;
   }
+
+  .bg-black {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .sort {
+    margin-top: 190px;
+    color: white;
+    text-shadow: 1px 1px black;
+  }
 </style>
+
+
+
+<!-- Application issues
+Body doesn't take up whole page. is this a Vue issue? maybe pagination to fix
+how to get popper.js to work with drop down or js drop down to @ click
+how to format date
+how to have sort persist on refresh
+On details page need form to reset
+still need to do some styling, especially on form and buttons --- Done
+User cannot add comment on closed post but should have some visual indication of this for the user --- Done
+-->
